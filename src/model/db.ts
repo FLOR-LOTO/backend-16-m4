@@ -1,34 +1,27 @@
-import { writeFileSync, readFileSync } from "node:fs"
-import { randomUUID } from "node:crypto"
+import { writeFileSync, readFileSync } from "node:fs";
+import { randomUUID } from "node:crypto";
 
 interface BookData {
-    name: string
-    released: string
-    author: string
+  name: string;
+  released: string;
+  author: string;
 }
 class Db {
-    private static PATH: string = "./src/database/books.json"
+  private static PATH: string = "./src/database/books.json";
 
-    private static testConnection() {
+  private static testConnection() {
 
-    }
+  }
+  
+  static readFile(): BookData[] {
+    const fileData = readFileSync(Db.PATH, { encoding: "utf-8" });
+    return JSON.parse(fileData);
+  }
 
-    static readFile(): BookData[] {
-        const dataTs = readFileSync(Db.PATH, { encoding: "utf-8" })
-        return JSON.parse(dataTs)
-
-    }
-
-    static writeFile(data: BookData[]) {
-        const dataTs = JSON.stringify(data)
-
-        writeFileSync(Db.PATH, dataTs)
-
-    }
+  static writeFile(data: BookData[]) {
+    writeFileSync(Db.PATH, JSON.stringify(data));
+  }
 }
 
-const { readFile, writeFile } = Db
+export const { readFile, writeFile } = Db;
 
-
-
-export { readFile, writeFile }
