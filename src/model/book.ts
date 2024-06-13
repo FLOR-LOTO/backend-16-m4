@@ -40,23 +40,16 @@ class Book {
     return !findBook ? " libro No Encotrado " : findBook;
   }
 
-  uploadNewBook(newBook: Book): boolean {
+  static uploadNewBook(newBook: Book): boolean {
     const books = readFile();
     const isBookOnDB = Book.findBookByTitle(newBook.name);
     typeof isBookOnDB != "string" ? false : books.push(newBook);
 
     writeFile(books);
-    
+
     return true;
   }
 }
 
-const BookData1 = {
-  name: "Brave New World",
-  released: 'hola',
-  author: 'flor'
-}
-
-
 console.log("hola");
-export {}; // Exportá los métodos estaticos
+export const { findBookByTitle, uploadNewBook } = Book;
